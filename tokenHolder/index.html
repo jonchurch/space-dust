@@ -4,6 +4,16 @@
 <head>
   <title>Agent Symbol Token Generator</title>
   <style>
+    form {
+      display: block
+    }
+    input {
+      width: 220px
+    }
+    input, select, button {
+      display: block;
+      margin-bottom: 1em;
+    }
     #token-list {
       margin-top: 2em;
     }
@@ -18,17 +28,19 @@
 
 <body>
   <h1>Agent Symbol Token Generator</h1>
+  <form>
+    <label for="symbol-input">Enter Agent Symbol:</label>
+    <input type="text" id="symbol-input">
+    <label for="email-input">Supporter Email:</input>
+    <input placeholder="Only for supporters of Spacetraders" type="text" id="email-input">
 
-  <label for="symbol-input">Enter Agent Symbol:</label>
-  <input type="text" id="symbol-input">
-  <input placeholder="Only for supporters of Spacetraders" type="text" id="email-input">
+    <label for="faction-input">Choose Faction:</label>
+    <select id="faction-input">
+      <!-- Factions will be populated here -->
+    </select>
 
-  <label for="faction-input">Choose Faction:</label>
-  <select id="faction-input">
-    <!-- Factions will be populated here -->
-  </select>
-
-  <button onclick="getAgentToken()">Get Token</button>
+    <button onclick="getAgentToken()">Get Token</button>
+  </form>
 
   <div id="token-list">
     <!-- Tokens will be displayed here -->
