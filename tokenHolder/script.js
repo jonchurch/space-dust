@@ -21,6 +21,7 @@ const FACTIONS = [
 function getAgentToken() {
   const symbolInput = document.getElementById('symbol-input').value;
   const factionInput = document.getElementById('faction-input').value;
+  const emailInput = document.getElementById('email-input').value
   const options = {
     method: 'POST',
     headers: {
@@ -29,6 +30,7 @@ function getAgentToken() {
     body: JSON.stringify({
       symbol: symbolInput,
       faction: factionInput,
+      email: emailInput ? emailInput : null
     }),
   };
 
