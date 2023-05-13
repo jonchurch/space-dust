@@ -23,12 +23,30 @@
       padding: 1em;
       border-radius: 5px;
     }
+    .json {
+      font-family: monospace;
+      white-space: pre-wrap;
+      word-break: break-all;
+      color: #333333; /* Change this to the desired color */
+    }
+    .json .number {
+      color: darkorange;
+    }
+    .json .string {
+      color: green;
+    }
+    .json .boolean {
+      color: blue;
+    }
+    .json .null {
+      color: magenta;
+    }
   </style>
 </head>
 
 <body>
   <h1>Agent Symbol Token Generator</h1>
-  <form>
+  <form onSubmit="handleSubmit(event)">
     <label for="symbol-input">Enter Agent Symbol:</label>
     <input type="text" id="symbol-input">
     <label for="email-input">Supporter Email:</input>
@@ -39,9 +57,12 @@
       <!-- Factions will be populated here -->
     </select>
 
-    <button onclick="getAgentToken()">Get Token</button>
+    <input type="submit" onclick="">Get Token</input>
   </form>
-
+  <div id="error-box" style="display:none; color:red; margin-top: 1em; border: 1px solid red; padding: 1em; border-radius: 5px;">
+    Error: <pre><code id="error-message" class="json"></code></pre>
+  </div>
+  <p id="warning" style="display:none; color:red;">Warning: Local Storage is required for this site to function. Otherwise your token would not be persisted anywhere.
   <div id="token-list">
     <!-- Tokens will be displayed here -->
   </div>
