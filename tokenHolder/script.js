@@ -1,97 +1,103 @@
 // script.js
 
-const factionDropdown = document.getElementById('faction-input');
+const factionDropdown = document.getElementById("faction-input");
 const FACTIONS = [
-    "COSMIC",
-    "VOID",
-    "GALACTIC",
-    "QUANTUM",
-    "DOMINION",
-    "ASTRO",
-    "CORSAIRS"
-]
+  "Cosmic Engineers",
+  "Voidfarers",
+  "Galactic Alliance",
+  "Quantum Federation",
+  "Stellar Dominion",
+  "Astro-Salvage Alliance",
+  "Seventh Space Corsairs",
+  "Obsidian Syndicate",
+  "Aegis Collective",
+  "United Independent Settlements",
+];
 // populate the dropdown
-  FACTIONS.forEach(faction => {
-    const option = document.createElement('option');
-    option.value = faction;
-    option.textContent = faction
-    factionDropdown.appendChild(option);
-  });
+FACTIONS.forEach((faction) => {
+  const option = document.createElement("option");
+  option.value = faction;
+  option.textContent = faction;
+  factionDropdown.appendChild(option);
+});
 
- function testLocalStorage() {
-    try {
-      localStorage.setItem('test', 'test');
-      localStorage.removeItem('test');
-      return true;
-    } catch (error) {
-      return false;
-    }
- }
+function testLocalStorage() {
+  try {
+    localStorage.setItem("test", "test");
+    localStorage.removeItem("test");
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
 // disable the input if no localstorage
 if (!testLocalStorage()) {
-  document.getElementById('warning').style.display = 'block';
-  document.querySelector('button').disabled = true;
+  document.getElementById("warning").style.display = "block";
+  document.querySelector("button").disabled = true;
 }
 
 function syntaxHighlightJSON(json) {
   const jsonString = JSON.stringify(json, undefined, 2);
-  const jsonHighlightRegex = /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g;
-
+  const jsonHighlightRegex =
+    /("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g;
 
   return jsonString
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
     .replace(jsonHighlightRegex, function (match) {
-      let cls = 'number';
+      let cls = "number";
       if (/^"/.test(match)) {
         if (/:$/.test(match)) {
-          cls = 'key';
+          cls = "key";
         } else {
-          cls = 'string';
+          cls = "string";
         }
       } else if (/true|false/.test(match)) {
-        cls = 'boolean';
+        cls = "boolean";
       } else if (/null/.test(match)) {
-        cls = 'null';
+        cls = "null";
       }
-      return '<span class="' + cls + '">' + match + '</span>';
+      return '<span class="' + cls + '">' + match + "</span>";
     });
 }
 function handleSubmit(e) {
-  e.preventDefault()
-  const symbolInput = document.getElementById('symbol-input').value;
-  const factionInput = document.getElementById('faction-input').value;
-  const emailInput = document.getElementById('email-input').value
+  e.preventDefault();
+  const symbolInput = document.getElementById("symbol-input").value;
+  const factionInput = document.getElementById("faction-input").value;
+  const emailInput = document.getElementById("email-input").value;
   const options = {
-    method: 'POST',
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       symbol: symbolInput,
       faction: factionInput,
-      email: emailInput ? emailInput : null
+      email: emailInput ? emailInput : null,
     }),
   };
 
-  const errorBox = document.getElementById('error-box');
-  const errorMessage = document.getElementById('error-message');
+  const errorBox = document.getElementById("error-box");
+  const errorMessage = document.getElementById("error-message");
   // Validation check for Agent input length
-    if (symbolInput.length < 3 || symbolInput.length > 14) {
-      errorMessage.textContent = 'Agent input must be between 3 and 14 characters.';
-      errorBox.style.display = 'block';
-      return;
-    }
+  if (symbolInput.length < 3 || symbolInput.length > 14) {
+    errorMessage.textContent =
+      "Agent input must be between 3 and 14 characters.";
+    errorBox.style.display = "block";
+    return;
+  }
 
-  fetch('https://api.spacetraders.io/v2/register', options)
-    .then(response => response.json())
-    .then(response => {
+  fetch("https://api.spacetraders.io/v2/register", options)
+    .then((response) => response.json())
+    .then((response) => {
       if (response.error) {
         // Show the error box with the formatted JSON error message
         errorMessage.innerHTML = syntaxHighlightJSON(response.error);
-        errorBox.style.display = 'block';
+        errorBox.style.display = "block";
       } else {
         // Hide the error box
-        errorBox.style.display = 'none';
+        errorBox.style.display = "none";
 
         const token = response.data.token;
         const symbol = response.data.agent.symbol;
@@ -103,22 +109,22 @@ function handleSubmit(e) {
         displayTokens();
       }
     })
-    .catch(err => {
+    .catch((err) => {
       console.error(err);
       // Show the error box with a generic error message
-      errorMessage.textContent = 'An error occurred. Please try again later.';
-      errorBox.style.display = 'block';
+      errorMessage.textContent = "An error occurred. Please try again later.";
+      errorBox.style.display = "block";
     });
 }
 
 function displayTokens() {
-  const tokenList = document.getElementById('token-list');
-  tokenList.innerHTML = ''; // Clear current list
+  const tokenList = document.getElementById("token-list");
+  tokenList.innerHTML = ""; // Clear current list
   for (let i = 0; i < localStorage.length; i++) {
     const symbol = localStorage.key(i);
     const token = localStorage.getItem(symbol);
-    const item = document.createElement('div');
-    item.classList.add('token-item');
+    const item = document.createElement("div");
+    item.classList.add("token-item");
     item.textContent = `Symbol: ${symbol}, Token: ${token}`;
     tokenList.appendChild(item);
   }
@@ -126,4 +132,3 @@ function displayTokens() {
 
 // Display existing tokens when page loads
 displayTokens();
-
