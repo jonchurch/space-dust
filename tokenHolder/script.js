@@ -2,16 +2,16 @@
 
 const factionDropdown = document.getElementById("faction-input");
 const FACTIONS = [
-  "Cosmic Engineers",
-  "Voidfarers",
-  "Galactic Alliance",
-  "Quantum Federation",
-  "Stellar Dominion",
-  "Astro-Salvage Alliance",
-  "Seventh Space Corsairs",
-  "Obsidian Syndicate",
-  "Aegis Collective",
-  "United Independent Settlements",
+  "COSMIC",
+  "VOID",
+  "GALACTIC",
+  "QUANTUM",
+  "DOMINION",
+  "ASTRO",
+  "CORSAIRS",
+  "OBSIDIAN",
+  "AEGIS",
+  "UNITED",
 ];
 // populate the dropdown
 FACTIONS.forEach((faction) => {
