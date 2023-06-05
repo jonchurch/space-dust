@@ -34,6 +34,12 @@
     h1, h2 {
       color: #FF4500;
     }
+    .days-since-reset {
+      font-size: 24px;
+      font-weight: bold;
+      margin-top: 10px;
+      color: #FF4500;
+    }
     @media screen and (max-width: 768px) {
       .container {
         padding: 10px;
@@ -65,6 +71,11 @@
       document.getElementById('announcements').innerHTML = data.announcements.map(
         ann => `<div><h3>${ann.title}</h3><p>${ann.body}</p></div>`
       ).join('');
+
+      const resetDate = new Date(data.resetDate);
+      const currentDate = new Date();
+      const daysSinceLastReset = Math.floor((currentDate - resetDate) / (1000 * 60 * 60 * 24));
+      document.getElementById('daysSinceLastReset').innerText = daysSinceLastReset;
     }
 
     window.onload = getLeaderboardData;
@@ -97,6 +108,9 @@
     </table>
     <h2>Upcoming Galactic Reset</h2>
     <p id="nextServerReset"></p>
+    <div class="days-since-reset">
+      Days since last reset: <span id="daysSinceLastReset"></span>
+    </div>
     <h2>Space Telegrams</h2>
     <div id="announcements">
     </div>
