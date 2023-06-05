@@ -9,13 +9,13 @@
       font-family: 'Comic Sans MS', cursive, sans-serif;
       display: flex;
       justify-content: center;
-      background-color: #F2F2F2;
+      background-color: #F6F7F9;
     }
     .container {
       max-width: 800px;
       padding: 20px;
       box-sizing: border-box;
-      background-color: #FFF;
+      background-color: #FFFFFF;
       border-radius: 15px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
@@ -24,21 +24,22 @@
       width: 100%;
     }
     th, td {
-      border: 1px solid #ccc;
+      border: 1px solid #B0BEC5;
       padding: 8px;
       text-align: left;
     }
     th {
-      background-color: #FFD700;
+      background-color: #E0E0E0;
     }
     h1, h2 {
-      color: #FF4500;
+      color: black
     }
-    .days-since-reset {
-      font-size: 24px;
-      font-weight: bold;
-      margin-top: 10px;
-      color: #FF4500;
+    a {
+      color: #3F51B5;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
     }
     @media screen and (max-width: 768px) {
       .container {
@@ -76,6 +77,10 @@
       const currentDate = new Date();
       const daysSinceLastReset = Math.floor((currentDate - resetDate) / (1000 * 60 * 60 * 24));
       document.getElementById('daysSinceLastReset').innerText = daysSinceLastReset;
+
+      document.getElementById('links').innerHTML = data.links.map(
+        link => `<li><a href="${link.url}" target="_blank">${link.name}</a></li>`
+      ).join('');
     }
 
     window.onload = getLeaderboardData;
@@ -83,7 +88,11 @@
 </head>
 <body>
   <div class="container">
-    <h1>Welcome to the Stellar Leaderboard!</h1>
+    <h1>💫 TOASTY's Stellar Leaderboard 💫</h1>
+    <span>Next Reset: </span><span id="nextServerReset"></span>
+    <div class="days-since-reset">
+      Days since last reset: <span id="daysSinceLastReset"></span>
+    </div>
     <h2>Top Space Billionaires</h2>
     <table>
       <thead>
@@ -107,13 +116,12 @@
       </tbody>
     </table>
     <h2>Upcoming Galactic Reset</h2>
-    <p id="nextServerReset"></p>
-    <div class="days-since-reset">
-      Days since last reset: <span id="daysSinceLastReset"></span>
-    </div>
     <h2>Space Telegrams</h2>
     <div id="announcements">
     </div>
+    <h3>Important Links:</h3>
+    <ul id="links">
+    </ul>
   </div>
 </body>
 </html>
