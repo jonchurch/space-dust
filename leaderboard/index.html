@@ -42,6 +42,10 @@
       document.getElementById('mostSubmittedCharts').innerHTML = data.leaderboards.mostSubmittedCharts.map(
         ms => `<tr><td>${ms.agentSymbol}</td><td>${ms.chartCount}</td></tr>`
       ).join('');
+      document.getElementById('nextServerReset').innerText = data.serverResets.next;
+      document.getElementById('announcements').innerHTML = data.announcements.map(
+        ann => `<div><h3>${ann.title}</h3><p>${ann.body}</p></div>`
+      ).join('');
     }
 
     window.onload = getLeaderboardData;
@@ -71,5 +75,10 @@
     <tbody id="mostSubmittedCharts">
     </tbody>
   </table>
+  <h2>Next Server Reset</h2>
+  <p id="nextServerReset"></p>
+  <h2>Latest Announcements</h2>
+  <div id="announcements">
+  </div>
 </body>
 </html>
