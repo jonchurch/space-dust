@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Leaderboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+  <script>
+    async function getLeaderboardData() {
+      const url = 'https://api.spacetraders.io/v2/';
+      const options = {method: 'GET', headers: {Accept: 'application/json'}};
+
+      try {
+        const response = await fetch(url, options);
+        const data = await response.json();
+        displayData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    function displayData(data) {
+      document.getElementById('mostCredits').innerHTML = data.leaderboards.mostCredits.map(
+        mc => `<tr><td>${mc.agentSymbol}</td><td>${mc.credits}</td></tr>`
+      ).join('');
+      document.getElementById('mostSubmittedCharts').innerHTML = data.leaderboards.mostSubmittedCharts.map(
+        ms => `<tr><td>${ms.agentSymbol}</td><td>${ms.chartCount}</td></tr>`
+      ).join('');
+    }
+
+    window.onload = getLeaderboardData;
+  </script>
+</head>
+<body>
+  <h1>Game Leaderboard</h1>
+  <h2>Most Credits</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Agent Symbol</th>
+        <th>Credits</th>
+      </tr>
+    </thead>
+    <tbody id="mostCredits">
+    </tbody>
+  </table>
+  <h2>Most Submitted Charts</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Agent Symbol</th>
+        <th>Chart Count</th>
+      </tr>
+    </thead>
+    <tbody id="mostSubmittedCharts">
+    </tbody>
+  </table>
+</body>
+</html>
