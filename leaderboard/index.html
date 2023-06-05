@@ -7,6 +7,13 @@
   <style>
     body {
       font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 800px;
+      padding: 20px;
+      box-sizing: border-box;
     }
     table {
       border-collapse: collapse;
@@ -19,6 +26,11 @@
     }
     th {
       background-color: #f2f2f2;
+    }
+    @media screen and (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
     }
   </style>
   <script>
@@ -52,33 +64,35 @@
   </script>
 </head>
 <body>
-  <h1>Game Leaderboard</h1>
-  <h2>Most Credits</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Agent Symbol</th>
-        <th>Credits</th>
-      </tr>
-    </thead>
-    <tbody id="mostCredits">
-    </tbody>
-  </table>
-  <h2>Most Submitted Charts</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Agent Symbol</th>
-        <th>Chart Count</th>
-      </tr>
-    </thead>
-    <tbody id="mostSubmittedCharts">
-    </tbody>
-  </table>
-  <h2>Next Server Reset</h2>
-  <p id="nextServerReset"></p>
-  <h2>Latest Announcements</h2>
-  <div id="announcements">
+  <div class="container">
+    <h1>Game Leaderboard</h1>
+    <h2>Most Credits</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Agent Symbol</th>
+          <th>Credits</th>
+        </tr>
+      </thead>
+      <tbody id="mostCredits">
+      </tbody>
+    </table>
+    <h2>Most Submitted Charts</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Agent Symbol</th>
+          <th>Chart Count</th>
+        </tr>
+      </thead>
+      <tbody id="mostSubmittedCharts">
+      </tbody>
+    </table>
+    <h2>Next Server Reset</h2>
+    <p id="nextServerReset"></p>
+    <h2>Latest Announcements</h2>
+    <div id="announcements">
+    </div>
   </div>
 </body>
 </html>
