@@ -6,14 +6,18 @@
   <title>Game Leaderboard</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
       display: flex;
       justify-content: center;
+      background-color: #F2F2F2;
     }
     .container {
       max-width: 800px;
       padding: 20px;
       box-sizing: border-box;
+      background-color: #FFF;
+      border-radius: 15px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     table {
       border-collapse: collapse;
@@ -25,7 +29,10 @@
       text-align: left;
     }
     th {
-      background-color: #f2f2f2;
+      background-color: #FFD700;
+    }
+    h1, h2 {
+      color: #FF4500;
     }
     @media screen and (max-width: 768px) {
       .container {
@@ -65,8 +72,8 @@
 </head>
 <body>
   <div class="container">
-    <h1>Game Leaderboard</h1>
-    <h2>Most Credits</h2>
+    <h1>Welcome to the Stellar Leaderboard!</h1>
+    <h2>Top Space Billionaires</h2>
     <table>
       <thead>
         <tr>
@@ -77,7 +84,7 @@
       <tbody id="mostCredits">
       </tbody>
     </table>
-    <h2>Most Submitted Charts</h2>
+    <h2>Star Chart Pioneers</h2>
     <table>
       <thead>
         <tr>
@@ -88,9 +95,9 @@
       <tbody id="mostSubmittedCharts">
       </tbody>
     </table>
-    <h2>Next Server Reset</h2>
+    <h2>Upcoming Galactic Reset</h2>
     <p id="nextServerReset"></p>
-    <h2>Latest Announcements</h2>
+    <h2>Space Telegrams</h2>
     <div id="announcements">
     </div>
   </div>
