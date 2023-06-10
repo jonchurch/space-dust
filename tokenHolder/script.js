@@ -11,7 +11,16 @@ const FACTIONS = [
   "CORSAIRS",
   "OBSIDIAN",
   "AEGIS",
-  "UNITED"
+  "UNITED",
+  "SOLITARY",
+  "COBALT",
+  "OMEGA",
+  "ECHO",
+  "LORDS",
+  "CULT",
+  "ANCIENTS",
+  "SHADOW",
+  "ETHEREAL"
 ];
 // populate the dropdown
 FACTIONS.forEach((faction) => {
