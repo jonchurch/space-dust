@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Themed Video Game Factions</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .faction-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .faction-item {
+      width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .faction-item h2 {
+      margin-top: 0;
+    }
+
+    .faction-item .traits {
+      list-style-type: none;
+      padding-left: 0;
+      margin-bottom: 0;
+    }
+
+    .faction-item .traits li {
+      font-size: 0.9em;
+    }
+
+    .faction-item .is-recruiting {
+      color: green;
+    }
+
+    .faction-item .not-recruiting {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h1>Space Themed Video Game Factions</h1>
+  <div class="faction-list" id="factionList"></div>
+
+  <script>
+    async function fetchFactions() {
+      let currentPage = 1;
+      const limit = 20;
+      const fetchedFactions = [];
+
+      while (true) {
+        const url = `https://api.spacetraders.io/v2/factions?page=${currentPage}&limit=${limit}`;
+        const options = {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json'
+          }
+        };
+
+        try {
+          const response = await fetch(url, options);
+          const data = await response.json();
+
+          if (data.data.length === 0) {
+            break;
+          }
+
+          fetchedFactions.push(...data.data);
+          currentPage++;
+
+        } catch (error) {
+          console.error(error);
+          break;
+        }
+      }
+
+      displayFactions(fetchedFactions);
+    }
+
+    function displayFactions(factions) {
+      const factionList = document.getElementById('factionList');
+
+      factions.forEach(faction => {
+        const factionItem = document.createElement('div');
+        factionItem.classList.add('faction-item');
+
+        const recruitingStatus = faction.isRecruiting ? 'is-recruiting' : 'not-recruiting';
+        const recruitingText = faction.isRecruiting ? 'Recruiting' : 'Not Recruiting';
+
+        factionItem.innerHTML = `
+          <h2>${faction.name} <span class="${recruitingStatus}">(${recruitingText})</span></h2>
+          <p><strong>Symbol:</strong> ${faction.symbol}</p>
+          <p><strong>Description:</strong> ${faction.description}</p>
+          <p><strong>Headquarters:</strong> ${faction.headquarters}</p>
+          <p><strong>Traits:</strong></p>
+          <ul class="traits">
+            ${faction.traits.map(trait => `<li><strong>${trait.name}:</strong> ${trait.description}</li>`).join('')}
+          </ul>
+        `;
+
+        factionList.appendChild(factionItem);
+      });
+    }
+
+    fetchFactions();
+  </script>
+</body>
+</html>
