@@ -63,10 +63,10 @@
 
     function displayData(data) {
       document.getElementById('mostCredits').innerHTML = data.leaderboards.mostCredits.map(
-        mc => `<tr><td>${mc.agentSymbol}</td><td>${mc.credits}</td></tr>`
+        mc => `<tr><td>${mc.agentSymbol}</td><td>${mc.credits.toLocaleString()}</td></tr>`
       ).join('');
       document.getElementById('mostSubmittedCharts').innerHTML = data.leaderboards.mostSubmittedCharts.map(
-        ms => `<tr><td>${ms.agentSymbol}</td><td>${ms.chartCount}</td></tr>`
+        ms => `<tr><td>${ms.agentSymbol}</td><td>${ms.chartCount.toLocaleString()}</td></tr>`
       ).join('');
       document.getElementById('nextServerReset').innerText = data.serverResets.next;
       document.getElementById('announcements').innerHTML = data.announcements.map(
